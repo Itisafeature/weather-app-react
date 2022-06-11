@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Header from './UI/Header';
-import Search from './Search';
+import Search from './components/Search';
 
 function App() {
   return (
