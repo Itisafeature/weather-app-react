@@ -1,11 +1,22 @@
 import { useState } from 'react';
+import axios from 'axios';
 import styles from './Search.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
+  const navigate = useNavigate();
   const [enteredCity, setEnteredCity] = useState('');
 
+  const searchCityHandler = async e => {
+    e.preventDefault();
+    const response = await axios.get(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${enteredCity}`
+    );
+    navigate('/found-cities', { state: { cities: response.data.results } });
+  };
+
   return (
-    <form class={styles.form}>
+    <form onSubmit={searchCityHandler} className={styles.form}>
       <input
         className={styles.input}
         onChange={e => setEnteredCity(e.target.value)}
@@ -13,7 +24,9 @@ const Search = () => {
         type="text"
         value={enteredCity}
       />
-      <button>Search for City</button>
+      <button type="submit" className={styles.btn}>
+        Search for City
+      </button>
     </form>
   );
 };
