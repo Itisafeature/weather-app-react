@@ -1,11 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
+import Header from './UI/Header';
 import Search from './Search';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Search />} />
-    </Routes>
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Search />} />
+      </Routes>
+    </div>
   );
 }
 
