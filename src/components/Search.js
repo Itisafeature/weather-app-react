@@ -12,7 +12,10 @@ const Search = () => {
     const response = await axios.get(
       `https://geocoding-api.open-meteo.com/v1/search?name=${enteredCity}`
     );
-    navigate('/found-cities', { state: { cities: response.data.results } });
+
+    navigate('/found-cities', {
+      state: { cities: response.data.results || [] },
+    });
   };
 
   return (

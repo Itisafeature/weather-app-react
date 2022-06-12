@@ -1,6 +1,5 @@
 .table {
   width: 100%;
-  margin: 0 40px 0 40px;
   border-collapse: collapse;
 }
 
@@ -9,10 +8,53 @@
   border: 1px solid black;
 }
 
+.table td {
+  text-align: left;
+}
+
 .table td:last-of-type {
   text-align: center;
 }
 
 .table button {
   width: 50%;
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-button-not-found {
+  margin-top: 40px;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.back-button-not-found:hover {
+  color: red;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.back-button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  color: red;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.cities-container {
+  padding: 0 20px;
+  text-align: center;
 }
