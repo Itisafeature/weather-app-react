@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ShowCity.module.css';
 
@@ -19,6 +19,7 @@ const configureResponse = data => {
   const configuredWeather = [];
   for (const [index, time] of Object.entries(data.time)) {
     const weatherObj = {};
+    weatherObj['id'] = index;
     weatherObj['day'] = time;
     weatherObj['precipitation_sum'] = data.precipitation_sum[index];
     weatherObj['temperature_2m_max'] = data.temperature_2m_max[index];
@@ -31,9 +32,10 @@ const configureResponse = data => {
 // Why is this rendering 6 times
 
 const ShowCity = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [city, setCity] = useState(location.state);
-  const [cityWeather, setCityWeather] = useState(null);
+  const [cityWeather, setCityWeather] = useState([]);
 
   useEffect(() => {
     const getCityWeather = async () => {
@@ -50,8 +52,41 @@ const ShowCity = () => {
     getCityWeather();
   }, [city]);
 
-  console.log(cityWeather);
-  return <div>Hello World</div>;
+  return (
+    <>
+      <button
+        onClick={() => navigate('/')}
+        className={styles['back-to-search-btn']}
+      >
+        Back to Search
+      </button>
+      <h2 className={styles['city-h2']}>
+        {city.name}, {city.admin1}, {city.country}
+      </h2>
+      <div className={styles['weather-container']}>
+        {cityWeather.map(day => {
+          return (
+            <div className={styles['day-card']} key={day.id}>
+              <h4>
+                Date: <span>{day.day}</span>
+              </h4>
+              <h4>
+                Precipitation Amount: <span>{day.precipitation_sum}mm</span>
+              </h4>
+              <h4>
+                Mininimum Temperature:{' '}
+                <span>{day.temperature_2m_min} degrees</span>
+              </h4>
+              <h4>
+                Maximum Temperature:{' '}
+                <span>{day.temperature_2m_max} degrees</span>
+              </h4>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
 };
 
 export default ShowCity;

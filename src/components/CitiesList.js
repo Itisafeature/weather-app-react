@@ -49,7 +49,12 @@ const CitiesList = () => {
                 <td>{city.country}</td>
                 <td>{city.population || 'Not Available'}</td>
                 <td>
-                  <button type="button" onClick={getCity} value={city.id}>
+                  <button
+                    className={styles['select-btn']}
+                    type="button"
+                    onClick={getCity}
+                    value={city.id}
+                  >
                     Select
                   </button>
                 </td>
